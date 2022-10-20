@@ -17,6 +17,18 @@
   <body>
     <div class="container">
       <h1>Игра в пятнашки</h1>
+      <div class="container__button">
+        <button class="button" id="shuffle">Перемешать</button>
+        <button class="button" id="pause">Пауза</button>
+        <button class="button" id="save">Сохранить</button>
+        <button class="button" id="results">Результаты</button>
+      </div>
+
+      <div class="container__info">
+        <div class="moves__text">Ходов: <span id="moves__count">-1</span></div>
+        <div class="game-time">Время: <span id="time__count">00:00</span></div>
+      </div>
+
       <div class="fifteen" id="fifteen">
         <button class="item" data-matrix-id="1">
           <span class="itemVal">1</span>
@@ -67,7 +79,10 @@
           <span class="itemVal">16</span>
         </button>
       </div>
-      <button class="button" id="shuffle">Перемешать</button>
+
+      <!-- <form name="MyForm">
+        <input name="stopwatch" size="10" value="00:00:00.00" disabled />
+      </form> -->
     </div>
     <script src="script.js"></script>
   </body>

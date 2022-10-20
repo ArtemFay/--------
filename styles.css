@@ -67,9 +67,33 @@ h1 {
   background: black;
   border: none;
   cursor: pointer;
-  padding: 0.5em 1.5em;
+  padding: 0.5em 1em;
+  margin: 1em 0em;
 }
 
 .button:hover {
   background: gray;
+}
+
+.button__container {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.container__info {
+  display: flex;
+  padding: 0.5em 5em;
+  text-align: center;
+  justify-content: space-between;
+}
+
+.game-time {
+  min-width: 45%;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.game-time span {
+  text-align: left;
 }
