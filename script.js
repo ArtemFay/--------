@@ -20,14 +20,34 @@ setPositionItems(matrix);
 
 // 2. Перемешиване
 document.getElementById("shuffle").addEventListener("click", () => {
-  const flatMatrix = matrix.flat();
-  const shuffledArray = shuffleArray(flatMatrix);
-  matrix = getMatrix(shuffledArray);
+  // смещение элементов в виртуальной матрице
+  // const flatMatrix = matrix.flat();
+  // const shuffledArray = shuffleArray(flatMatrix);
+  // matrix = getMatrix(shuffledArray);
+
+  // УМНОЕ ПЕРЕМЕШИВАНИЕ
+  // 1. Сделать валидное смещение и запомнить прошлую позицию
+  let priveousEmpty = { x: "", y: "" };
+  let oneRandomMoveResult = oneRandomMove();
+
+  swap(oneRandomMoveResult[0], findCoordinatesByNumber(16, matrix), matrix);
+  priveousEmpty = { x: oneRandomMoveResult[1].x, y: oneRandomMoveResult[1].y };
+
+  console.log(priveousEmpty);
+  console.log(secondEmpty);
+
+  // 2. Повторить смещения N раз
+
+  // реальное смещение элементов
+
   setPositionItems(matrix);
+
+  // обнуление ходов
   moveReset();
+
+  // обнуление времени
   ClearСlock();
-  StartStop();
-  // StartTIME();
+  // StartStop();
 });
 
 // 3. Изменение позиции по клику
@@ -153,7 +173,7 @@ function findCoordinatesByNumber(number, matrix) {
   return null;
 }
 
-// проверка варилдности смешения блоков
+// проверка валидности смешения блоков
 function isValidForSwap(coords1, coords2) {
   const diffX = Math.abs(coords1.x - coords2.x);
   const diffY = Math.abs(coords1.y - coords2.y);
@@ -209,7 +229,6 @@ function ClearСlock() {
   ms = 0;
   init = 0;
   readout = "00:00";
-  // document.MyForm.stopwatch.value = readout;
   document.getElementById("time__count").textContent = readout;
 }
 
@@ -273,7 +292,6 @@ function StartTIME() {
     dh = "00";
   }
   readout = dm + ":" + ds;
-  // document.MyForm.stopwatch.value = readout;
   document.getElementById("time__count").textContent = readout;
   clocktimer = setTimeout("StartTIME()", 1);
 }
@@ -289,4 +307,43 @@ function StartStop() {
     clearTimeout(clocktimer);
     init = 0;
   }
+}
+
+// =========================================
+// Подфункции умного перемешивания
+
+function oneRandomMove() {
+  // найти пустой блок №16
+  // найти валидные смещения
+  // сместить
+  // запомнить прошлую позицию
+
+  const emptyBlock = findCoordinatesByNumber(blankNumber, matrix);
+  // console.log(emptyBlock);
+
+  let coordsArray = [];
+  console.log("\nИзначальный пустой блок: " + JSON.stringify(emptyBlock));
+
+  // up
+  if (emptyBlock.y - 1 >= 0) {
+    coordsArray.push({ x: emptyBlock.x, y: emptyBlock.y - 1 });
+  }
+  // down;
+  if (emptyBlock.y + 1 < 4) {
+    coordsArray.push({ x: emptyBlock.x, y: emptyBlock.y + 1 });
+  }
+  // left;
+  if (emptyBlock.x - 1 >= 0) {
+    coordsArray.push({ x: emptyBlock.x - 1, y: emptyBlock.y });
+  }
+  // right;
+  if (emptyBlock.x + 1 < 4) {
+    coordsArray.push({ x: emptyBlock.x + 1, y: emptyBlock.y });
+  }
+
+  let side = Math.round(Math.random() * (coordsArray.length - 1));
+  console.log("Варианты для смещения: " + JSON.stringify(coordsArray));
+  console.log("Номер рандома " + side);
+  console.log("Блок становится пустым " + JSON.stringify(coordsArray[side]));
+  return [coordsArray[side], emptyBlock];
 }
