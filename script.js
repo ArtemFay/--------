@@ -374,4 +374,5 @@ function chackWon(matrix) {
       alert("УРА! ПОБЕДА!");
     }
   }, 100);
+  StartStop();
 }
