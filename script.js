@@ -28,26 +28,37 @@ document.getElementById("shuffle").addEventListener("click", () => {
   // УМНОЕ ПЕРЕМЕШИВАНИЕ
   // 1. Сделать валидное смещение и запомнить прошлую позицию
   let priveousEmpty = { x: "", y: "" };
-  let oneRandomMoveResult = oneRandomMove();
 
-  swap(oneRandomMoveResult[0], findCoordinatesByNumber(16, matrix), matrix);
-  priveousEmpty = { x: oneRandomMoveResult[1].x, y: oneRandomMoveResult[1].y };
+  for (let i = 0; i < 100; i++) {
+    let oneRandomMoveResult = oneRandomMove();
 
-  console.log(priveousEmpty);
-  console.log(secondEmpty);
+    if (
+      priveousEmpty.x != oneRandomMoveResult[0].x ||
+      priveousEmpty.y != oneRandomMoveResult[0].y
+    ) {
+      swap(oneRandomMoveResult[0], findCoordinatesByNumber(16, matrix), matrix);
+      setPositionItems(matrix);
+    }
+
+    priveousEmpty = {
+      x: oneRandomMoveResult[1].x,
+      y: oneRandomMoveResult[1].y,
+    };
+
+    console.log(i);
+  }
+  // console.log(secondEmpty);
 
   // 2. Повторить смещения N раз
 
   // реальное смещение элементов
-
-  setPositionItems(matrix);
 
   // обнуление ходов
   moveReset();
 
   // обнуление времени
   ClearСlock();
-  // StartStop();
+  StartStop();
 });
 
 // 3. Изменение позиции по клику
@@ -145,6 +156,7 @@ function setPositionItems(matrix) {
 
   // Нужно добавить блок, при срабатывании данной функции увеличиваем число ходов на 1.
   moveUpper();
+  chackWon(matrix);
 }
 
 // подмена стилей, чтобы установить смешения для всех блоков
@@ -346,4 +358,20 @@ function oneRandomMove() {
   console.log("Номер рандома " + side);
   console.log("Блок становится пустым " + JSON.stringify(coordsArray[side]));
   return [coordsArray[side], emptyBlock];
+}
+
+function chackWon(matrix) {
+  console.log(matrix.join() == "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16");
+
+  setTimeout(() => {
+    let countMoves = Number(
+      document.getElementById("moves__count").textContent
+    );
+    if (
+      matrix.join() == "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16" &&
+      countMoves > 2
+    ) {
+      alert("УРА! ПОБЕДА!");
+    }
+  }, 100);
 }
