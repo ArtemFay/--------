@@ -57,7 +57,7 @@ document.getElementById("shuffle").addEventListener("click", () => {
   moveReset();
 
   // обнуление времени
-  ClearСlock();
+  // ClearСlock();
   // StartStop();
 });
 
