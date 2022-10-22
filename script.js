@@ -58,7 +58,7 @@ document.getElementById("shuffle").addEventListener("click", () => {
 
   // обнуление времени
   ClearСlock();
-  StartStop();
+  // StartStop();
 });
 
 // 3. Изменение позиции по клику
