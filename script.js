@@ -372,7 +372,7 @@ function chackWon(matrix) {
       countMoves > 2
     ) {
       alert("УРА! ПОБЕДА!");
+      StartStop();
     }
   }, 100);
-  StartStop();
 }
